@@ -1,15 +1,23 @@
 package models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(
+        name = "getAllMessages",
+        query = "SELECT m FROM Message AS m ORDER BY m.id DESC"
+    )
+})
 @Table(name = "messages")
 public class Message {
     @Id
@@ -18,7 +26,7 @@ public class Message {
     private Integer id;
 
     @Column(name = "title", length = 255, nullable = false)
-    private String title ;
+    private String title;
 
     @Column(name = "content", length = 255, nullable = false)
     private String content;
@@ -28,11 +36,6 @@ public class Message {
 
     @Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
-
-    public Integer getIs() {
-        return id;
-
-    }
 
     public Integer getId() {
         return id;
@@ -73,5 +76,4 @@ public class Message {
     public void setUpdated_at(Timestamp updated_at) {
         this.updated_at = updated_at;
     }
-
 }
